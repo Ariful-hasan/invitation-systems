@@ -1,0 +1,23 @@
+{
+    "name": "arifh/invitation-systems",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/config/constants.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "Ariful-Hasan",
+            "email": "arifhasan.mbstu@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "symfony/var-dumper": "^6.1",
+        "rbdwllr/reallysimplejwt": "^5.0"
+    }
+}
