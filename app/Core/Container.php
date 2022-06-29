@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Container;
+namespace App\Core;
 
-use App\Container\Exceptions\ContainerException;
+use App\Core\Exceptions\ContainerException;
 use Psr\Container\ContainerInterface;
 
 class Container implements ContainerInterface

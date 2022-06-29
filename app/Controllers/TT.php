@@ -2,9 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Controllers\TestInterface;
-
-class TestController implements TestInterface
+class TT 
 {
     public function hello()
     {
