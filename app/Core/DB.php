@@ -6,6 +6,9 @@ use PDO;
 use PDOException;
 
 
+/**
+ * @mixin PDO
+ */
 class DB {
 
     protected static $connection = false;
@@ -35,5 +38,17 @@ class DB {
         }
          
         return self::$connection;
+    }
+    
+    /**
+     * __call to get all the PDO function for intellisence
+     *
+     * @param  mixed $name
+     * @param  mixed $args
+     * @return void
+     */
+    public function __call(string $name, array $args)
+    {
+        return call_user_func_array([self::$connection, $name], $args);
     }
 }

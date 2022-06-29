@@ -8,6 +8,7 @@ use App\Core\ConfigInterface;
 use App\Core\Container;
 use App\Core\Router;
 use App\Core\Request;
+use App\Core\Response;
 
 
 use App\Controllers\TestController;//test
@@ -19,6 +20,7 @@ class Application {
     private Container $container;
     public Router $router;
     public Request $request;
+    public Response $response;
 
 
     public function __construct(protected ConfigInterface $config)
@@ -27,7 +29,8 @@ class Application {
 
         $this->container = new Container();
         $this->request = new Request();
-        $this->router = new Router($this->container, $this->request);
+        $this->response = new Response();
+        $this->router = new Router($this->container, $this->request, $this->response);
 
         /**
          * binding all the services.

@@ -5,6 +5,7 @@ namespace App\Core;
 use Exception;
 use App\Core\Container;
 use App\Core\Request;
+use App\Core\Response;
 
 /**
  * Need time to perfectly workable
@@ -13,7 +14,7 @@ class Router {
 
     private array $routes;
 
-    public function __construct(private Container $container, private Request $request)
+    public function __construct(private Container $container, private Request $request, private Response $response)
     {
         # code...
     }
@@ -94,7 +95,7 @@ class Router {
                 $class = $this->container->get($class);
 
                 if (method_exists($class, $method)) {
-                    return call_user_func_array([$class, $method], [$this->request]);
+                    return call_user_func_array([$class, $method], [$this->request, $this->response]);
                 }
             }
         }
