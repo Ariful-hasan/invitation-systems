@@ -6,17 +6,21 @@ $dotenv->load();
 
 use App\Core\Application;
 use App\Core\Config;
-use App\Core\Router;
+// use App\Core\Router;
+// use App\Container\Container;
 
-new Application(new Config($_ENV));
 
-
+// $constainer = new Container();
+$app = new Application(new Config($_ENV));
+$app->router->get('/', [App\Controllers\HomeController::class, 'index']);
+$app->router->post('/', [App\Controllers\HomeController::class, 'testpost']);
+$app->run();
 
 /**
  * register all routes
  */
-$router = new Router();
 
-$router->get('/', [App\Controllers\HomeController::class, 'index']);
-$router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
+// $router = new Router($constainer);
+// $router->get('/', [App\Controllers\HomeController::class, 'index']);
+// $router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
 

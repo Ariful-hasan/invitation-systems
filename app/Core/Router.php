@@ -3,6 +3,8 @@
 namespace App\Core;
 
 use Exception;
+use App\Container\Container;
+use App\Core\Request;
 
 /**
  * Need time to perfectly workable
@@ -10,6 +12,11 @@ use Exception;
 class Router {
 
     private array $routes;
+
+    public function __construct(private Container $container, private Request $request)
+    {
+        # code...
+    }
     
     /**
      * register
@@ -64,14 +71,12 @@ class Router {
      * 
      * need time to perfectly workable
      */
-    public function resolve(string $requestUri, string $requestMethod)
+    public function resolve()
     {
-  
-        $route = explode("?", $requestUri)[0];
-        // dump($requestMethod);
-        // dump($route);
-        $action = $this->routes[$requestMethod][$route] ?? null;
-        // dump($action);
+        // $route = explode("?", $requestUri)[0];
+        $route = $this->request->getUrl();
+        // $action = $this->routes[$requestMethod][$route] ?? null;
+        $action = $this->routes[$this->request->getMethod()][$route] ?? null;
 
         if (!$action) {
             throw new Exception("404 not found!");
@@ -85,24 +90,15 @@ class Router {
             [$class, $method] = $action;
 
             if (class_exists($class)) {
-                $class = new $class();
+                // $class = new $class();
+                $class = $this->container->get($class);
 
                 if (method_exists($class, $method)) {
-                    return call_user_func_array([$class, $method], []);
+                    return call_user_func_array([$class, $method], [$this->request]);
                 }
             }
         }
 
         throw new Exception("404 not found!");
-    }
-
-    public function getUrl()
-    {
-        $path = $_SERVER['REQUEST_URI'];
-        $position = strpos($path, '?');
-        if ($position !== false) {
-            $path = substr($path, 0, $position);
-        }
-        return $path;
     }
 }

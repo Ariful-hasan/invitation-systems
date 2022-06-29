@@ -3,7 +3,6 @@
 namespace App\Service;
 
 
-
 class TokenService
 {
     private string $secret;
