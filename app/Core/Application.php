@@ -47,6 +47,10 @@ class Application {
     public function run()
     {
         // $this->router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
-        $this->router->resolve();
+        try {
+            $this->router->resolve();
+        } catch (\Exception $e) {
+            return $this->response->send(500, "Internal server error");
+        }
     }
 }
