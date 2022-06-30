@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Core;
+namespace App\Contracts;
 
-interface ConfigInterface {
+interface ConfigContract {
 
     public function __construct (array $config);
 

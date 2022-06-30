@@ -4,7 +4,7 @@ namespace App\Core;
 
 use App\Core\DB;
 use PDO;
-use App\Core\ConfigInterface;
+use App\Contracts\ConfigContract;
 use App\Core\Container;
 use App\Core\Router;
 use App\Core\Request;
@@ -23,7 +23,7 @@ class Application {
     public Response $response;
 
 
-    public function __construct(protected ConfigInterface $config)
+    public function __construct(protected ConfigContract $config)
     {
         self::$db = DB::connect($config->db[0]);
 

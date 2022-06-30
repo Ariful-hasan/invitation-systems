@@ -2,9 +2,9 @@
 
 namespace App\Core;
 
-use App\Core\ConfigInterface;
+use App\Contracts\ConfigContract;
 
-class Config implements ConfigInterface {
+class Config implements ConfigContract {
 
     protected array $config = [];
 

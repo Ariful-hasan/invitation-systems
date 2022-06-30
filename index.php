@@ -1,11 +1,8 @@
 <?php
 
-require_once __DIR__ . '/app/bootstrap.php';
+error_reporting(0);
 
-/**
- * catch exception that may not anywhere
- */
-set_exception_handler(['App\Core\Exceptions\GlobalExceptionHandler', 'handle']);
+require_once __DIR__ . '/app/bootstrap.php';
 
 /**
  * set api request/response header
@@ -35,3 +32,5 @@ $app->router->get('/', [App\Controllers\HomeController::class, 'index']);
 $app->router->post('/', [App\Controllers\HomeController::class, 'testpost']);
 
 $app->run();
+
+
