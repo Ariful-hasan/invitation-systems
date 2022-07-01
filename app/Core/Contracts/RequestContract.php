@@ -11,4 +11,6 @@ interface RequestContract
     public function getBody(): array;
 
     public function validated(): array;
+
+    public function getBearerToken(): string;
 }

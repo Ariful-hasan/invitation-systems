@@ -30,6 +30,7 @@ $app = new Application(new Config($_ENV));
  */
 $app->router->post('/user', [App\Http\Controllers\UserController::class, 'create']);
 $app->router->post('/login', [App\Http\Controllers\AuthController::class, 'login']);
+$app->router->post('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
 
 $app->run();
 

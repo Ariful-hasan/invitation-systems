@@ -10,4 +10,4 @@ set_error_handler(['App\Core\Errors\GlobalErrorHandler', 'handle']);
 /**
  * catch exception that may not anywhere
  */
-// set_exception_handler(['App\Core\Exceptions\GlobalExceptionHandler', 'handle']);
+set_exception_handler(['App\Core\Exceptions\GlobalExceptionHandler', 'handle']);

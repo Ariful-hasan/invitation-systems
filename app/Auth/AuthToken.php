@@ -19,7 +19,7 @@ class AuthToken
      * @param  mixed $userId
      * @return string
      */
-    public function generate($userId): string
+    public function generate(int $userId): string
     {       
         try {
             $expiration = time() + $_ENV['TOKEN_EXPIRE'];
@@ -35,8 +35,13 @@ class AuthToken
      * @param  mixed $token
      * @return bool
      */
-    public function validate($token): bool
+    public function validate(string $token): bool
     {
         return Token::validate($token, $this->secret);
+    }
+
+    public function decode(string $token)
+    {
+        return Token::getPayload($token);
     }
 }

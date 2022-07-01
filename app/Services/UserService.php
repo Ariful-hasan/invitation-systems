@@ -16,7 +16,7 @@ class UserService
     {
         try {
             if ($this->userRepository->find(['email' => $request['email']])) {
-                return $this->response->send(400, "This email already exist!");
+                return $this->response->send(409, "This email already exist!");
             }
 
             // hashing password

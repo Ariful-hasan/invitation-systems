@@ -27,8 +27,7 @@ class AuthService
             }
 
             $token = Token::generate($user['id']);
-            // var_dump($user['id']);
-            // var_dump($this->userRepository->updateById($user['id'], ['token' => $token]));die;
+            
             if ($this->userRepository->updateById($user['id'], ['token' => $token])) {
                 return $this->response->send(200, "Successfully loggedin.", [
                     'userId' => $user['id'],
@@ -41,5 +40,28 @@ class AuthService
         } catch (\Exception $e) {
             return $this->response->send(500, $e->getMessage());
         }  
+    }
+
+    public function logout(array $request)
+    {
+        try {
+            if (!Token::validate($request['token'])) {
+                return $this->response->send(401, "Invalid Token!");
+            }
+
+            $payload = Token::decode($request['token']);
+            
+            if (($request['id'] !== $payload['user_id']) || !$this->userRepository->find($request)) {
+                return $this->response->send(401, "Invalid User Information!");
+            }
+
+            if (!$this->userRepository->updateById($request['id'], ['token' => ''])) {
+                return $this->response->send(404, "Failed to Logout!");
+            }
+
+            return $this->response->send(200, "Successfully Logout.");
+        } catch (\Exception $e) {
+            return $this->response->send(500, $e->getMessage());
+        }
     }
 }
