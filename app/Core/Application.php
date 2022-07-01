@@ -4,7 +4,7 @@ namespace App\Core;
 
 use App\Core\DB;
 use PDO;
-use App\Contracts\ConfigContract;
+use App\Core\Contracts\ConfigContract;
 use App\Core\Container;
 use App\Core\Router;
 use App\Core\Request;

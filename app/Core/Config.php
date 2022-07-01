@@ -2,7 +2,7 @@
 
 namespace App\Core;
 
-use App\Contracts\ConfigContract;
+use App\Core\Contracts\ConfigContract;
 
 class Config implements ConfigContract {
 
