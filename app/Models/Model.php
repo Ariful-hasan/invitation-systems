@@ -93,12 +93,16 @@ class Model
         $query = "";
         if (!empty($this->where)) {
             foreach ($this->where as $field => $value) {
-                $query .= $field."=?, ";
+                $query .= $field."=? , ";
                 $data[] = $value;
             }
+
+            $query = rtrim(trim($query), ",");    
         }
         $data[] = $id;
         $query = "UPDATE ".$this->table." SET ".$query. "WHERE id=?"; 
+        // var_dump($query);
+        // var_dump($data);die;
         $stmt= $this->db->prepare($query);
         
         return $stmt->execute($data);

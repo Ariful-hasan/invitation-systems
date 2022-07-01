@@ -3,15 +3,14 @@
 namespace App\Http\Requests;
 
 use App\Core\Request;
-use App\Core\Response;
 
-class UserRequest extends Request
-{        
+class LoginRequest extends Request
+{
     public function __construct()
     {
         parent::__construct();
     }
-    
+
     /**
      * validate post data
      * @override
@@ -25,18 +24,13 @@ class UserRequest extends Request
             return $this->response->send(400, "Email is not valid!");
         }
 
-        if (strlen($data['password']) < 4 || strlen($data['password']) > 8) {
-            return $this->response->send(400, "Password is not valid!");
-        }
-
-        if (strlen($data['name']) < 1 || strlen($data['password']) > 20) {
+        if (strlen($data['password']) < 1 || strlen($data['password']) > 20) {
             return $this->response->send(400, "Name is not valid!");
         }
 
         $data = [
             'email' => $data['email'],
-            'password' => $data['password'],
-            'name' => $data['name'],
+            'password' => $data['password']
         ];
 
         return $data;

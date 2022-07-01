@@ -12,7 +12,7 @@ class UserRepository
         
     }
 
-    public function find(array $where)
+    public function find(array $where): array
     {
         $this->user->where = $where;
 
@@ -28,5 +28,11 @@ class UserRepository
     public function create(array $data): int
     {
         return $this->user->create($data);
+    }
+
+    public function updateById(int $id, array $fields)
+    {
+        $this->user->where = $fields;
+        return $this->user->updateById($id);
     }
 }

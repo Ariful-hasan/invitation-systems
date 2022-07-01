@@ -3,14 +3,13 @@
 namespace App\Services;
 
 use App\Core\Response;
-use App\Facades\Token;
 use App\Repositories\UserRepository;
 
 class UserService 
 {
     public function __construct(private UserRepository $userRepository, protected Response $response)
     {
-        // $this->response = new Response();
+
     }
 
     public function create(array $request)

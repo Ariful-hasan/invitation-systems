@@ -29,7 +29,7 @@ $app = new Application(new Config($_ENV));
  * set router for the api gateway
  */
 $app->router->post('/user', [App\Http\Controllers\UserController::class, 'create']);
-// $app->router->post('/', [App\Controllers\HomeController::class, 'testpost']);
+$app->router->post('/login', [App\Http\Controllers\AuthController::class, 'login']);
 
 $app->run();
 
