@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(0);
+error_reporting(1);
 
 require_once __DIR__ . '/app/bootstrap.php';
 
@@ -28,8 +28,8 @@ $app = new Application(new Config($_ENV));
 /**
  * set router for the api gateway
  */
-$app->router->get('/', [App\Controllers\HomeController::class, 'index']);
-$app->router->post('/', [App\Controllers\HomeController::class, 'testpost']);
+$app->router->post('/user', [App\Http\Controllers\UserController::class, 'create']);
+// $app->router->post('/', [App\Controllers\HomeController::class, 'testpost']);
 
 $app->run();
 

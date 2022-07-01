@@ -2,10 +2,18 @@
 
 namespace App\Controllers;
 
+use App\Core\Request;
+
 class UserController 
-{
-    public function FunctionName(Type $var = null)
+{        
+    /**
+     * create user
+     *
+     * @param  mixed $request
+     * @return int last inserted id
+     */
+    public function create(Request $request): int
     {
-        # code...
+        
     }
 }

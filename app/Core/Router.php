@@ -4,8 +4,10 @@ namespace App\Core;
 
 use Exception;
 use App\Core\Container;
-use App\Core\Request;
-use App\Core\Response;
+// use App\Core\Request;
+// use App\Core\Response;
+use App\Core\Contracts\RequestContract;
+use App\Core\Contracts\ResponseContract;
 
 /**
  * Need time to perfectly workable
@@ -14,7 +16,7 @@ class Router {
 
     private array $routes;
 
-    public function __construct(private Container $container, private Request $request, private Response $response)
+    public function __construct(private Container $container, private RequestContract $request, private ResponseContract $response)
     {
         # code...
     }
@@ -74,9 +76,7 @@ class Router {
      */
     public function resolve()
     {
-        // $route = explode("?", $requestUri)[0];
         $route = $this->request->getUrl();
-        // $action = $this->routes[$requestMethod][$route] ?? null;
         $action = $this->routes[$this->request->getMethod()][$route] ?? null;
 
         if (!$action) {

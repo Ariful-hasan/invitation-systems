@@ -10,10 +10,6 @@ use App\Core\Router;
 use App\Core\Request;
 use App\Core\Response;
 
-
-use App\Controllers\TestController;//test
-use App\Controllers\TestInterface;//test
-
 class Application {
 
     private static PDO $db;
@@ -36,7 +32,7 @@ class Application {
          * binding all the services.
          * interface dependencies.
          */
-        $this->container->set(TestInterface::class, TestController::class);
+        // $this->container->set(RequestContract::class, Request::class);
     }
 
     public static function db(): PDO
@@ -46,7 +42,6 @@ class Application {
 
     public function run()
     {
-        // $this->router->resolve($_SERVER['REQUEST_URI'], strtolower($_SERVER['REQUEST_METHOD']));
         try {
             $this->router->resolve();
         } catch (\Exception $e) {

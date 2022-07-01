@@ -2,7 +2,9 @@
 
 namespace App\Core;
 
-class Response 
+use App\Core\Contracts\ResponseContract;
+
+class Response implements ResponseContract
 {
     public function send($status=400, $status_message='', $data=[])
     {
@@ -14,5 +16,6 @@ class Response
         
         $json_response = json_encode($response);
         echo $json_response;
+        exit();
     }
 }

@@ -2,9 +2,18 @@
 
 namespace App\Core;
 
-class Request
+use App\Core\Contracts\RequestContract;
+use App\Core\Response;
+
+class Request implements RequestContract
 {
+    protected Response $response;
     private array $routeParams = [];
+
+    public function __construct()
+    {
+        $this->response = new Response();
+    }
 
     public function getMethod()
     {
@@ -21,17 +30,17 @@ class Request
         return $path;
     }
 
-    public function isGet()
+    public function isGet(): bool
     {
         return $this->getMethod() === 'get';
     }
 
-    public function isPost()
+    public function isPost(): bool
     {
         return $this->getMethod() === 'post';
     }
 
-    public function getBody()
+    public function getBody(): array
     {
         $data = [];
         if ($this->isGet()) {
@@ -45,6 +54,11 @@ class Request
             }
         }
         return $data;
+    }
+
+    public function validated(): array
+    {
+        return [];
     }
 
     /**
