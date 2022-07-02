@@ -97,6 +97,7 @@ class Model
     public function updateById($id): bool
     {
         $query = "";
+        
         if (!empty($this->where)) {
             foreach ($this->where as $field => $value) {
                 $query .= $field."=? , ";
@@ -105,10 +106,14 @@ class Model
 
             $query = rtrim(trim($query), ",");    
         }
+
+        if ($this->timestamp) {
+            $query .= $query ? ", updated_at=? " : " updated_at=? ";   
+            $data[] = date("Y:m:d H:i:s", time());
+        }
+
         $data[] = $id;
         $query = "UPDATE ".$this->table." SET ".$query. "WHERE id=?"; 
-        // var_dump($query);
-        // var_dump($data);die;
         $stmt= $this->db->prepare($query);
         
         return $stmt->execute($data);
