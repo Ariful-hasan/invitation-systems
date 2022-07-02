@@ -21,7 +21,7 @@ class Model
     }
 
     /**
-     * create
+     * insert new row.
      *
      * @return int
      */
@@ -37,7 +37,7 @@ class Model
     }
 
     /**
-     * getFieldData
+     * set prepare statement data.
      *
      * @return array
      */
@@ -61,7 +61,7 @@ class Model
     }
     
     /**
-     * getInsertPreparedFieldQuery
+     * set prepare statement query. 
      *
      * @return string
      */
@@ -87,7 +87,13 @@ class Model
         
         return $query;
     }
-
+    
+    /**
+     * update row using id
+     *
+     * @param  mixed $id
+     * @return bool
+     */
     public function updateById($id): bool
     {
         $query = "";

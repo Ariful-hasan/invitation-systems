@@ -23,7 +23,12 @@ class AuthController
         $validated = (new LoginRequest())->validated();
         return $this->authService->login($validated);
     }
-
+    
+    /**
+     * logout
+     *
+     * @return void
+     */
     public function logout()
     {
         $validated = (new LogoutRequest())->validated();

@@ -11,7 +11,13 @@ class UserRepository
     {
         
     }
-
+    
+    /**
+     * find user with conditions
+     *
+     * @param  mixed $where
+     * @return array
+     */
     public function find(array $where): array
     {
         $this->user->where = $where;
@@ -29,7 +35,14 @@ class UserRepository
     {
         return $this->user->create($data);
     }
-
+    
+    /**
+     * update user by user-id.
+     *
+     * @param  mixed $id
+     * @param  mixed $fields
+     * @return void
+     */
     public function updateById(int $id, array $fields)
     {
         $this->user->where = $fields;

@@ -12,7 +12,14 @@ class AuthService
     {
 
     }
-
+    
+    /**
+     * login user
+     * return user info and JWT token
+     *
+     * @param  mixed $request
+     * @return void
+     */
     public function login(array $request)
     {
         try {
@@ -41,7 +48,14 @@ class AuthService
             return $this->response->send(500, $e->getMessage());
         }  
     }
-
+    
+    /**
+     * logout user
+     * update user token set as empty
+     * 
+     * @param  mixed $request
+     * @return void
+     */
     public function logout(array $request)
     {
         try {
