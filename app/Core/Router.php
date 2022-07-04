@@ -59,6 +59,18 @@ class Router {
     {
         return $this->register('post',$route, $action);
     }
+    
+    /**
+     * put
+     *
+     * @param  mixed $route
+     * @param  mixed $action
+     * @return self
+     */
+    public function put(string $route, callable | array $action): self
+    {
+        return $this->register('put',$route, $action);
+    }
 
     public function routes(): array
     {
@@ -75,7 +87,7 @@ class Router {
      * need time to perfectly workable
      */
     public function resolve()
-    {
+    { 
         $route = $this->request->getUrl();
         $action = $this->routes[$this->request->getMethod()][$route] ?? null;
 
@@ -95,6 +107,7 @@ class Router {
                 $class = $this->container->get($class);
 
                 if (method_exists($class, $method)) {
+                    
                     return call_user_func_array([$class, $method], [$this->request, $this->response]);
                 }
             }

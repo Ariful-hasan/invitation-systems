@@ -7,8 +7,8 @@ use App\Core\Response;
 
 class Request implements RequestContract
 {
-    protected Response $response;
-    private array $routeParams = [];
+    public Response $response;
+    public array $routeParams = [];
 
     public function __construct()
     {
@@ -40,19 +40,31 @@ class Request implements RequestContract
         return $this->getMethod() === 'post';
     }
 
+    public function isPut(): bool
+    {
+        return $this->getMethod() === 'put';
+    }
+
     public function getBody(): array
     {
         $data = [];
+        
         if ($this->isGet()) {
             foreach ($_GET as $key => $value) {
                 $data[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
-        }
-        if ($this->isPost()) {
+        } elseif ($this->isPost()) {
             foreach ($_POST as $key => $value) {
                 $data[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
             }
+        } elseif ($this->isPut()) {
+            $_PUT = json_decode(file_get_contents("php://input"), true);
+            foreach ($_PUT as $key => $value) {
+                unset($_PUT[$key]);
+                $data[str_replace('amp;', '', $key)] = $value;
+            }
         }
+
         return $data;
     }
 

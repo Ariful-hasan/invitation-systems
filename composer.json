@@ -6,7 +6,8 @@
             "App\\": "app/"
         },
         "files": [
-            "app/config/constants.php"
+            "app/config/constants.php",
+            "app/config/helpers.php"
         ]
     },
     "authors": [

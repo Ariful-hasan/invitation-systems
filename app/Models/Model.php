@@ -115,7 +115,7 @@ class Model
         $data[] = $id;
         $query = "UPDATE ".$this->table." SET ".$query. "WHERE id=?"; 
         $stmt= $this->db->prepare($query);
-        
+        var_dump($query);var_dump($data);
         return $stmt->execute($data);
     }
 

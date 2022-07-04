@@ -32,6 +32,9 @@ $app->router->post('/user', [App\Http\Controllers\UserController::class, 'create
 $app->router->post('/login', [App\Http\Controllers\AuthController::class, 'login']);
 $app->router->post('/logout', [App\Http\Controllers\AuthController::class, 'logout']);
 
+$app->router->post('/invite', [App\Http\Controllers\InvitationController::class, 'create']);
+$app->router->put('/invite', [App\Http\Controllers\InvitationController::class, 'update']);
+
 $app->run();
 
 

@@ -6,12 +6,10 @@ define("DBNAME", "dbname");
 define("DBUSER", "user");
 define("DBPASSWORD", "password");
 
-
-
 define("ERROR", "error");
 define("MESSAGE", "message");
 
-// define("TOKEN_SECRET", $_ENV["TOKEN_SECRET"]);
-// define("TOKEN_EXPIRE", $_ENV["TOKEN_EXPIRE"]);
-// define("TOKEN_ISSUER", $_ENV["TOKEN_ISSUER"]);
-;
+define("SEND_INVITE_REQUEST", "R");
+define("ACCEPT_INVITE_REQUEST", "A");
+define("REJECT_INVITE_REQUEST", "D");
+define("CANCEL_INVITE_REQUEST", "C");
