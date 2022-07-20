@@ -24,7 +24,7 @@ class InvitationController
     public function update()
     {
         $validated = (new InvitationUpdateRequest())->validated();
-
+        
         return $this->invitationService->update($validated);
     }
 }

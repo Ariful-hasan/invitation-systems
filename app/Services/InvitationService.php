@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Services\Service;
-use App\Facades\Token;
 use App\Repositories\InvitationRepository;
 use App\Repositories\UserRepository;
 use App\Models\User;
@@ -30,16 +29,6 @@ class InvitationService extends Service
     public function create(array $request)
     {
         try {
-            // if (!Token::validate($request['token'])) {
-            //     return $this->response->send(401, "Invalid Token!");
-            // }
-
-            // $payload = Token::decode($request['token']);
-
-            // if (($request['id'] !== $payload['user_id']) || !$this->userRepository->find(['id'=>$request['id'], 'token'=>$request['token']])) {
-            //     return $this->response->send(401, "Invalid User Information!");
-            // }
-
             if (!$this->auth($request)) {
                 return $this->response->send(401, "Opps! Something went wrong.");
             }
@@ -71,31 +60,22 @@ class InvitationService extends Service
     public function update(array $request)
     {
         try {
-            if (!Token::validate($request['token'])) {
-                return $this->response->send(401, "Invalid Token!");
-            }
-
-            $payload = Token::decode($request['token']);
-
-            if (($request['id'] !== $payload['user_id']) || !$this->userRepository->find(['id'=>$request['id'], 'token'=>$request['token']])) {
-                return $this->response->send(401, "Invalid User Information!");
+            if (!$this->auth($request)) {
+                return $this->response->send(401, "Opps! Something went wrong.");
             }
 
             $invt = ['id' => $request['invite_id'], 'sender' => $request['id']];
             $revInvt = ['id' => $request['invite_id'], 'receiver' => $request['id']];
             $update = null;
-            // var_dump($this->invitationRepository->find($invt));
-            // var_dump($request['status'] === CANCEL_INVITE_REQUEST);
-            $update = $this->invitationRepository->updateById($request['id'], ['status' => CANCEL_INVITE_REQUEST]);
-
+           
             if ($this->invitationRepository->find($invt) && $request['status'] === CANCEL_INVITE_REQUEST) {
-                $update = $this->invitationRepository->updateById($request['id'], ['status' => CANCEL_INVITE_REQUEST]);
+                $update = $this->invitationRepository->updateById($request['invite_id'], ['status' => CANCEL_INVITE_REQUEST]);
             } elseif ($this->invitationRepository->find($revInvt) && $request['status'] !== CANCEL_INVITE_REQUEST) {
-                $update = $this->invitationRepository->updateById($request['id'], ['status' => getInvitationStatus($request['status'])]);
+                $update = $this->invitationRepository->updateById($request['invite_id'], ['status' => $request['status']]);
             }
 
-            if (!$update) {
-                return $this->response->send(200, "Successfull Process Your Request.");
+            if ($update) {
+                return $this->response->send(200, "Successfully Process Your Request.");
             }
 
             return $this->response->send(401, "Request Failed!");
