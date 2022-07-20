@@ -5,9 +5,12 @@ namespace App\Services;
 use App\Core\Response;
 use App\Facades\Token;
 use App\Repositories\UserRepository;
+use App\Auth\Auth;
 
 class AuthService 
 {
+    use Auth;
+
     public function __construct(protected UserRepository $userRepository, protected Response $response)
     {
 
@@ -59,14 +62,8 @@ class AuthService
     public function logout(array $request)
     {
         try {
-            if (!Token::validate($request['token'])) {
-                return $this->response->send(401, "Invalid Token!");
-            }
-
-            $payload = Token::decode($request['token']);
-            
-            if (($request['id'] !== $payload['user_id']) || !$this->userRepository->find($request)) {
-                return $this->response->send(401, "Invalid User Information!");
+            if (!$this->auth($request)) {
+                return $this->response->send(401, "Opps! Something went wrong.");
             }
 
             if (!$this->userRepository->updateById($request['id'], ['token' => ''])) {
