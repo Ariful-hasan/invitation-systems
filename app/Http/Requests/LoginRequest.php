@@ -16,9 +16,9 @@ class LoginRequest extends Request
      * @override
      * @return array
      */
-    public function validated(): array
+    public function validated($data=null): array
     {
-        $data = $this->getBody();
+        $data = $data ?? $this->getBody();
 
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             return $this->response->send(400, "Email is not valid!");

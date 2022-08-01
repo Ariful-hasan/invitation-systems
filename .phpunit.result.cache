@@ -1,0 +1,1 @@
+{"version":1,"defects":{"ExampleTest::test_example":3,"ExampleTest::test_for_verifying_login_request":5,"RequestTest::test_for_email_verifying_login_request":4},"times":{"ExampleTest::test_example":0.004,"ExampleTest::test_for_verifying_login_request":0.023,"ExampleTest::test_for_email_verifying_login_request":0.013,"RequestTest::test_for_email_verifying_login_request":0.021}}
